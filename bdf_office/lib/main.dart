@@ -1,5 +1,7 @@
-import 'package:bdf_office/screens/bdf_view.dart';
+import 'package:bdf_office/screens/pdf_viewer.dart';
 import 'package:flutter/material.dart';
+
+import 'screens/write_pdf.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const StartPage(),
+      home: const WritePdf(),
     );
   }
 }
@@ -30,8 +32,8 @@ class StartPage extends StatelessWidget {
       body: Center(
         child: ElevatedButton.icon(
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const BdfView()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => PdfViewer()));
             },
             icon: const Icon(Icons.file_open),
             label: const Text("Open bdf")),
