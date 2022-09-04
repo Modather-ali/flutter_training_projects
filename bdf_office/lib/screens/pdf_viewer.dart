@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfViewer extends StatelessWidget {
-  PdfViewer({super.key});
+  final String pdfFile;
+  PdfViewer({super.key, required this.pdfFile});
+
   final PdfViewerController _pdfViewerController = PdfViewerController();
 
   @override
@@ -31,8 +35,9 @@ class PdfViewer extends StatelessWidget {
             )
           ],
         ),
-        body: SfPdfViewer.asset(
-          "assets/bdfs/coders-at-work.pdf",
+        body: SfPdfViewer.file(
+          // "assets/bdfs/coders-at-work.pdf",
+          File(pdfFile),
           controller: _pdfViewerController,
         ));
   }

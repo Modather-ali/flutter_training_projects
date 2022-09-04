@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:path_provider/path_provider.dart';
+import 'package:printing/printing.dart';
 import 'package:flutter/material.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
@@ -16,8 +15,16 @@ class WritePdf extends StatefulWidget {
 class _WritePdfState extends State<WritePdf> {
   final pdf = pw.Document();
   _writePdf() async {
-    final file = File("example.pdf");
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    final file = File("$tempPath/example.pdf");
+    final netImage = await networkImage('https://www.nfet.net/nfet.jpg');
 
+    pdf.addPage(pw.Page(build: (pw.Context context) {
+      return pw.Center(
+        child: pw.Image(netImage),
+      ); // Center
+    })); // Page
     pdf.addPage(pw.Page(
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
@@ -34,14 +41,14 @@ class _WritePdfState extends State<WritePdf> {
       body: Center(
         child: ElevatedButton.icon(
             onPressed: () async {
-              // _writePdf();
-              Directory tempDir = await getTemporaryDirectory();
-              String tempPath = tempDir.path;
+              _writePdf();
+              // Directory tempDir = await getTemporaryDirectory();
+              // String tempPath = tempDir.path;
 
-              Directory appDocDir = await getApplicationDocumentsDirectory();
-              String appDocPath = appDocDir.path;
-              
-              log("Temporary Directory: $tempPath\nApplication Documents Directory: $appDocPath");
+              // Directory appDocDir = await getApplicationDocumentsDirectory();
+              // String appDocPath = appDocDir.path;
+
+              // log("Temporary Directory: $tempPath\nApplication Documents Directory: $appDocPath");
             },
             icon: const Icon(Icons.save),
             label: const Text("Save bdf")),
