@@ -40,6 +40,7 @@ class _WritePdfState extends State<WritePdf> {
 
               Directory appDocDir = await getApplicationDocumentsDirectory();
               String appDocPath = appDocDir.path;
+              
               log("Temporary Directory: $tempPath\nApplication Documents Directory: $appDocPath");
             },
             icon: const Icon(Icons.save),
