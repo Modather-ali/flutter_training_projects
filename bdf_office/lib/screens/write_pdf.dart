@@ -20,11 +20,15 @@ class _WritePdfState extends State<WritePdf> {
     final file = File("$tempPath/example.pdf");
     final netImage = await networkImage('https://www.nfet.net/nfet.jpg');
 
-    pdf.addPage(pw.Page(build: (pw.Context context) {
-      return pw.Center(
-        child: pw.Image(netImage),
-      ); // Center
-    })); // Page
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          return pw.Center(
+            child: pw.Image(netImage),
+          );
+        },
+      ),
+    );
     pdf.addPage(pw.Page(
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
@@ -42,13 +46,6 @@ class _WritePdfState extends State<WritePdf> {
         child: ElevatedButton.icon(
             onPressed: () async {
               _writePdf();
-              // Directory tempDir = await getTemporaryDirectory();
-              // String tempPath = tempDir.path;
-
-              // Directory appDocDir = await getApplicationDocumentsDirectory();
-              // String appDocPath = appDocDir.path;
-
-              // log("Temporary Directory: $tempPath\nApplication Documents Directory: $appDocPath");
             },
             icon: const Icon(Icons.save),
             label: const Text("Save bdf")),

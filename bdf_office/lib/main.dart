@@ -4,6 +4,7 @@ import 'package:bdf_office/screens/pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'screens/search_pdf.dart';
 import 'screens/write_pdf.dart';
 
 void main() {
@@ -48,18 +49,31 @@ class StartPage extends StatelessWidget {
                           )));
                 },
                 icon: const Icon(Icons.file_open),
-                label: const Text("Open bdf")),
+                label: const Text("Open pdf")),
             SizedBox(
               height: 20,
               width: MediaQuery.of(context).size.width,
             ),
             ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const WritePdf()));
-                },
-                icon: const Icon(Icons.picture_as_pdf),
-                label: const Text("New bdf")),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const WritePdf()));
+              },
+              icon: const Icon(Icons.picture_as_pdf),
+              label: const Text("New pdf"),
+            ),
+            SizedBox(
+              height: 20,
+              width: MediaQuery.of(context).size.width,
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const SearchPDF()));
+              },
+              icon: const Icon(Icons.search),
+              label: const Text("Search pdf"),
+            ),
           ],
         ),
       ),
