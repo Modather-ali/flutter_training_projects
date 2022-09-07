@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:share_plus/share_plus.dart';
 
 import 'pdf_viewer.dart';
 
@@ -81,12 +80,48 @@ class _SearchPDFState extends State<SearchPDF> {
             ),
             trailing: IconButton(
               onPressed: () {
-                Share.shareFiles([pdfFiles[index].path],
-                    subject: "Share pdf file",
-                    text: "I am trying to share a pdf file");
+                FileStat fileStat = pdfFiles[index].statSync();
+                String createTime = fileStat.changed.toString().split(":")[0];
+                String fileName = pdfFiles[index].path.split("/").last;
+                String fileType = pdfFiles[index].path.split(".").last;
+                num fileSize = File(pdfFiles[index].path).lengthSync() / 1024;
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: const Text("File name:"),
+                              subtitle: Text(fileName),
+                            ),
+                            ListTile(
+                              title: const Text("Last changed:"),
+                              subtitle: Text(createTime),
+                            ),
+                            ListTile(
+                              title: const Text("Size:"),
+                              subtitle: Text(
+                                  "${fileSize.toString().split(".")[0]} KB"),
+                            ),
+                            ListTile(
+                              title: const Text("Type"),
+                              subtitle: Text(fileType),
+                            ),
+                            ListTile(
+                              title: const Text("Path"),
+                              subtitle: Text(pdfFiles[index].path),
+                            ),
+                          ],
+                        ),
+                      );
+                    });
+                // Share.shareFiles([pdfFiles[index].path],
+                //     subject: "Share pdf file",
+                //     text: "I am trying to share a pdf file");
               },
               icon: const Icon(
-                Icons.share,
+                Icons.info,
                 color: Colors.blue,
               ),
             ),
